@@ -30,15 +30,15 @@ resource "google_storage_bucket" "source_code" {
 
 data "archive_file" "code" {
   type        = "zip"
-  output_path = "/var.gcp_source_zip_name"
+  output_path = "gcp_source_zip/source_code"
 
   source {
-    content  = file("/main.py")
+    content  = "file(/main.py)"
     filename = "main.py"
   }
 
   source {
-    content  = file("/requirements.txt")
+    content  = "file(/requirements.txt)"
     filename = "requirements.txt"
   }
 }
