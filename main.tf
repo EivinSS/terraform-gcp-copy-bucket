@@ -20,6 +20,7 @@ resource "google_storage_bucket" "source_code" {
   name                        = var.gcf_source_bucket
   project                     = var.gcp_project_id
   force_destroy               = true
+  location                    = "EU"
 
   versioning {
     enabled = false

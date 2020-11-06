@@ -15,7 +15,3 @@ variable gcp_source_zip_name {
     description = "zipfile-name"
     default   = "gcp_source_zip"
 }
-
-variable path {
-    default   = "/mnt/c/Users/E180047/Documents/GitHub/terraform-gcp-copy-bucket"
-}
