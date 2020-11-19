@@ -48,6 +48,8 @@ resource "google_storage_bucket" "source_code" {
 }
 #sd
 
+#fggfg
+
 # Zip the coud function source code
 data "archive_file" "code" {
   type        = "zip"
