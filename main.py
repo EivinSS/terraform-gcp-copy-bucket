@@ -21,5 +21,3 @@ def publish_message(event, context):
     publish_client.publish(topic, b'default-message', bucketName=f'{bucket_name}', fileName=f'{file_name}')
 
     return "done"
-
-    #sdaasd
