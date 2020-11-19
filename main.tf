@@ -46,6 +46,7 @@ resource "google_storage_bucket" "source_code" {
     enabled = false
   }
 }
+#sd
 
 # Zip the coud function source code
 data "archive_file" "code" {
