@@ -2,3 +2,4 @@
 # package>=version
 
 google-cloud-storage>=1.22.0
+google-cloud-pubsub>=0

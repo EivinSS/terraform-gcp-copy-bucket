@@ -15,3 +15,7 @@ variable gcp_source_zip_name {
     description = "zipfile-name"
     default   = "gcp_source_zip"
 }
+
+variable region {
+  default = "europe-west1"
+}

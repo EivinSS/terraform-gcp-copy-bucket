@@ -1,28 +1,23 @@
-import base64
 import os
 from google.cloud import storage
-from datetime import datetime
+from google.cloud import pubsub
 
-def hello_pubsub(event, context):
 
-     # Creates a timestamp: yyyymmdd_hh:mm:ss
-     now = datetime.now()
-     timestamp = now.strftime("%Y%m%d_%H:%M:%S")
+def publish_message(event, context):
+    """Triggered by a change to a Cloud Storage bucket.
+    Args:
+        event (dict): Event payload.
+        context (google.cloud.functions.Context): Metadata for the event.
+    """
+    file = event
+    
+    publish_client = pubsub.PublisherClient()
+    publish_options = pubsub.types.PublisherOptions(enable_message_ordering=True)
 
-     storage_client = storage.Client()
-     # Define the origin bucket
-     origin = storage_client.bucket(os.environ['SOURCE_BUCKET'])
-     # Define the destination bucket
-     destination = storage_client.bucket(os.environ['SINK_BUCKET'])
-     # Get the list of the blobs located inside the bucket which files you want to copy
-     blobs = storage_client.list_blobs(os.environ['SOURCE_BUCKET'])
+    topic = os.environ['topic']
+    bucket_name = file['bucket']
+    file_name = file['name']
 
-     for blob in blobs:
-          # Copies the blobs to the destionation
-          origin.copy_blob(blob, destination)
-          # Making a temporary blob referenceing the blob just copied
-          tempBlob = destination.blob(blob.name)
-          # Renaming the blob. By doing so we change the path inside the timestamp-folder
-          destination.rename_blob(tempBlob, timestamp + '/' + tempBlob.name)
-          
-     return "Done!"
+    publish_client.publish(topic, b'default-message', bucketName=f'{bucket_name}', fileName=f'{file_name}')
+
+    return "done"
